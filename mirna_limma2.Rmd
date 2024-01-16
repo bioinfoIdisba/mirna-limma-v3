@@ -1,0 +1,125 @@
+---
+title: "Resultats"
+output: word_document
+date: '2023-06-22'
+params:
+  logname: NULL
+---
+
+```{r,echo=F}
+folder<-params$logname
+print(folder)
+knitr::opts_chunk$set(echo = F,warning = F,message = F,class.source = "watch-out",eval = T)
+
+```
+```{r results='asis', echo=FALSE, out.width="150mm"}
+
+if(file.exists(paste0(folder,"/Taules/tab_all.csv"))){
+cat("# miRNA DE")
+
+cat("\n")
+tabla2<-read.csv(file = paste0(folder,"/Taules/tab_all.csv"))
+
+cat("Hi ha ",length(unique(tabla2[,1]))," miRNA amb pvalor no corregit <=0.05")
+cat("\n")
+cat("\n")
+cat("Hi ha ",length(tabla2$adj.P.Val[tabla2$adj.P.Val<=0.05])," miRNA amb pvalor corregit (FDR) <=0.05")
+# cat("Comentario: ",params$coment2)
+}
+if(file.exists(paste0(folder,"/Taules/tab_all.csv"))){
+knitr::kable(head(tabla2[,c(1:3,6:7)],25))
+}
+```
+
+```{r results='asis', echo=FALSE, out.width="110mm"}
+cat ("# Volcano")
+cat("\n")
+if(file.exists(paste0(folder,"/Plots/volcano.png"))){
+knitr::include_graphics(paste0(folder,"/Plots/volcano.png"))
+}
+```
+
+```{r results='asis', echo=FALSE, out.width="210mm", out.height="200mm"}
+
+cat ("# Heatmap")
+cat("\n")
+
+if(file.exists(paste0(folder,"./Plots/heat.png"))){
+knitr::include_graphics(paste0(folder,"./Plots/heat.png"))
+}
+
+```
+
+```{r results='asis', echo=FALSE, out.width="150mm"}
+
+if(file.exists(paste0(folder,"./Taules/targets.csv"))){
+cat("# miRNA Targets")
+
+cat("\n")
+
+tabla2<-read.csv(file = paste0(folder,"./Taules/targets.csv"))
+
+cat("Hi ha ",length(unique(tabla2$target_symbol))," targets identificats.")
+
+# cat("Comentario: ",params$coment2)
+}
+
+if(file.exists(paste0(folder,"./Taules/tab_all.csv"))){
+knitr::kable(head(tabla2[,c(4:6)],10))
+}
+```
+
+```{r results='asis', echo=FALSE, out.width="210mm", out.height="200mm"}
+ if(file.exists(paste0(folder,"./Taules/go_ora.csv"))){
+   cat ("# GO ORA")
+ cat("\n")
+  }
+if(file.exists(paste0(folder,"./Taules/go_ora.csv"))){
+ tabla2<-read.csv(file = paste0(folder,"./Taules/go_ora.csv"))
+ cat("\n")
+  cat(paste0("Hi ha ", dim(tabla2)[1], " GO significatius"))
+  cat("\n")
+ knitr::kable(head(tabla2[,c(2:3,6,10)],10))
+ 
+ }
+
+```
+
+
+```{r results='asis', echo=FALSE, out.width="200mm"}
+
+if(file.exists(paste0(folder,"./Plots/go_ora_dotplot.png"))){
+  
+cat("\n")
+knitr::include_graphics(paste0(folder,"./Plots/go_ora_dotplot.png"))
+}
+
+```
+
+```{r results='asis', echo=FALSE, out.width="210mm", out.height="200mm"}
+ if(file.exists(paste0(folder,"./Taules/WIKI_ora.csv"))){
+   cat ("# WIKI ORA")
+ cat("\n")
+ }
+if(file.exists(paste0(folder,"./Taules/WIKI_ora.csv"))){
+ tabla2<-read.csv(file = paste0(folder,"./Taules/WIKI_ora.csv"))
+ cat("\n")
+  cat(paste0("Hi ha ", dim(tabla2)[1], " GO significatius"))
+  cat("\n")
+ knitr::kable(head(tabla2[,c(2:3,6,10)],10))
+ }
+
+```
+
+
+```{r results='asis', echo=FALSE, out.width="200mm"}
+
+if(file.exists(paste0(folder,"./Plots/WIKI_ora_dotplot.png"))){
+  
+cat("\n")
+knitr::include_graphics(paste0(folder,"./Plots/WIKI_ora_dotplot.png"))
+}
+
+```
+
+

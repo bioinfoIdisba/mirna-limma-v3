@@ -1,0 +1,204 @@
+---
+title: "Cluster Profile"
+author:  "Plataforma Genòmica i Bioinformàtica [Plantilla Sol·licitud](http://www.idisba.es/cat/Portals/0/Documentos/Plataformas%20Web/Genomica/Solicitud%20Servicios%20GENOMICA.pdf) "
+output:
+  #output: pdf_document
+   rmdformats::robobook:
+     css: "/usr/local/lib/R/site-library/AnalisisArrays2/templates/CSS.css"
+     #java: " /usr/local/lib/R/site-library/AnalisisArrays2/templates/Java.js"
+     highlight: kate
+     toc: 3
+     code_folding: hide
+editor_options: 
+  chunk_output_type: console
+self_contained: false
+mainfont: Harabara Mais
+sansfont: Harabara Mais
+monofont: Harabara Mais
+# knit: (function(inputFile, encoding) { 
+#       rmarkdown::render(inputFile,
+params:
+  logname: NULL
+  coment2: NA
+  coment3: NA
+  coment4: NA
+---
+
+```{r, include=FALSE}
+folder<-params$logname
+#logos<-paste("![](/usr/local/lib/R/site-library/rmdformats/templates/robobook/LogotipoCorporativo.png){width=20%}\t![](/usr#/local/lib/R/site-library/rmdformats/templates/robobook/Plataforma_Genomica.jpg){width=125%}")
+#logos<-  paste("<center><a href = 'http://www.idisba.es/es/' target = #'_blank'>![](/usr/local/lib/R/site-library/rmdformats/templates/robobook/LogotipoCorporativo.png){#id .class width=125%}</a>
+#")
+version<-paste0("Versió: ",Sys.time())
+```
+
+---
+date: "`r version`"
+---
+
+<div>
+<h3>
+#
+</h3>
+</div>
+
+```{r setup, include=FALSE}
+## Global options
+source("/usr/local/lib/R/site-library/AnalisisArrays2/templates/llibreries_Informes.R")
+knitr::opts_chunk$set(warning = F,message = F,class.source = "watch-out",eval = T)
+
+```
+
+```{r,results='asis'}
+#file.exists(paste0(folder,"/Taules/RETRIVEDMIRNA.csv")
+if(file.exists(paste0(folder,"/Taules/cel_files_feno.csv"))){
+cat("# Data in")
+cat("\n")
+cat("## Tabla")
+cat("\n")
+tabla1<-read.csv(file = paste0(folder,"/Taules/cel_files_feno.csv"))
+
+}
+
+if(file.exists(paste0(folder,"/Taules/cel_files_feno.csv"))){
+datatable_mod4(tabla1)
+}
+
+# if(file.exists(paste0(folder,"/Taules/SemanticData.csv")){
+#   if(grepl('Comentario: Escribe aqui tu comentario…',params$coment1)==TRUE){
+#     print(grepl('Comentario: Escribe aqui tu comentario…',params$coment1))
+# 
+#   }
+#   if(grepl('Comentario: Escribe aqui tu comentario…',params$coment1)==FALSE){
+#      print(grepl('Comentario: Escribe aqui tu comentario…',params$coment1))
+#     cat("Comentario: ",params$coment1)
+#   }
+# }
+```
+
+```{r,results='asis'}
+if(file.exists(paste0(folder,"/Taules/tab_all.csv"))){
+cat("# miRNA DE")
+cat("\n")
+cat("## Tabla")
+cat("\n")
+tabla2<-read.csv(file = paste0(folder,"/Taules/tab_all.csv"))
+
+# cat("Comentario: ",params$coment2)
+}
+if(file.exists(paste0(folder,"/Taules/tab_all.csv"))){
+datatable_mod4(tabla2)
+}
+
+if(file.exists(paste0(folder,"/Plots/volcano.png"))){
+knitr::include_graphics(paste0(folder,"/Plots/volcano.png"))
+}
+if(file.exists(paste0(folder,"/Plots/heat.png"))){
+knitr::include_graphics(paste0(folder,"/Plots/heat.png"))
+}
+```
+
+```{r,results='asis'}
+#file.exists(paste0(folder,"/Taules/RETRIVEDMIRNA.csv")
+if(file.exists(paste0(folder,"/Taules/targets.csv"))){
+cat("#  Targets")
+cat("\n")
+cat("## Tabla")
+cat("\n")
+tabla3<-read.csv(file = paste0(folder,"/Taules/targets.csv"))
+
+# cat("Comentario: ",params$coment3)
+}
+if(file.exists(paste0(folder,"/Taules/targets.csv"))){
+datatable_mod4(tabla3)
+}
+
+```
+
+```{r,results='asis'}
+#file.exists(paste0(folder,"/Taules/RETRIVEDMIRNAS.csv")
+if(file.exists(paste0(folder,"/Taules/go_ora.csv"))){
+cat("# GO")
+cat("\n")
+cat("## Tabla")
+cat("\n")
+tabla4<-read.csv(file = paste0(folder,"/Taules/go_ora.csv"))
+
+# cat("Comentario: ",params$coment4)
+}
+if(file.exists(paste0(folder,"/Taules/go_ora.csv"))){
+datatable_mod4(tabla4,col_inv = "geneID")
+}
+
+if(file.exists(paste0(folder,"/Plots/go_ora_dotplot.png"))){
+knitr::include_graphics(paste0(folder,"/Plots/go_ora_dotplot.png"))
+
+}
+```
+
+```{r,results='asis'}
+#file.exists(paste0(folder,"/Taules/RETRIVEDMIRNAS.csv")
+if(file.exists(paste0(folder,"/Taules/kegg_ora.csv"))){
+cat("# KEGG")
+cat("\n")
+cat("## Tabla")
+cat("\n")
+tabla4<-read.csv(file = paste0(folder,"/Taules/kegg_ora.csv"))
+
+# cat("Comentario: ",params$coment4)
+}
+
+if(file.exists(paste0(folder,"/Taules/kegg_ora.csv"))){
+datatable_mod4(tabla4,col_inv = "geneID")
+}
+
+if(file.exists(paste0(folder,"/Plots/KEGG_ora_dotplot.png"))){
+knitr::include_graphics(paste0(folder,"/Plots/KEGG_ora_dotplot.png"))
+
+}
+```
+
+
+```{r,results='asis'}
+#file.exists(paste0(folder,"/Taules/RETRIVEDMIRNAS.csv")
+if(file.exists(paste0(folder,"/Taules/wiki_ora.csv"))){
+cat("# WIKI")
+cat("\n")
+cat("## Tabla")
+cat("\n")
+tabla4<-read.csv(file = paste0(folder,"/Taules/wiki_ora.csv"))
+
+# cat("Comentario: ",params$coment4)
+}
+
+if(file.exists(paste0(folder,"/Taules/wiki_ora.csv"))){
+datatable_mod4(tabla4,col_inv = "geneID")
+}
+
+if(file.exists(paste0(folder,"/Plots/WIKI_ora_dotplot.png"))){
+knitr::include_graphics(paste0(folder,"/Plots/WIKI_ora_dotplot.png"))
+
+}
+
+```
+
+<div class = "center">
+
+<a href="informe-copy.html" download="Analisis_Arrays"> <strong> Download Page </strong> </a>
+
+<address>
+
+<strong>Written by:</strong><a href="mailto:josep.muncunill@ssib.es">\
+Josep Muncunill Farreny (Bioinformático)</a><br><strong> Designed by:</strong><a href="mailto:ignasi.delsalto@ssib.es">\
+Ignasi Del Salto Estrany (Programador y Diseñador)</a><br><strong> Visit us at:</strong><a href="https://bioinfo.conectabalear.net/shiny/"  target = '_blank'>\
+https://bioinfo.conectabalear.net/shiny/</a></br>
+
+</address>
+
+&#169; Departamento de Genómica y Bioinformática de <strong> IDISBA </strong>
+
+<div class = "logos">
+<center><a href = 'http://www.idisba.es/es/Servicios/Plataformas-Cient%C3%ADfico-T%C3%A9cnicas/Gen%C3%B3mica-y-Bioinform%C3%A1tica' target = '_blank'><img src ='/usr/local/lib/R/site-library/AnalisisArrays2/templates/bioinfo_logo.png' ></a>
+<a href = 'http://www.idisba.es/es/' target = '_blank'><img src ='/usr/local/lib/R/site-library/AnalisisArrays2/templates/idisba_logo.png'></a></center>
+</div>
+</div>
